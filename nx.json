@@ -36,7 +36,13 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/sms-e2e/**/*"]
+      "exclude": [
+        "apps/sms-e2e/**/*",
+        "apps/otp-e2e/**/*"
+      ]
     }
-  ]
+  ],
+  "tui": {
+    "enabled": false
+  }
 }

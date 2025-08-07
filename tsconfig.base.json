@@ -6,7 +6,10 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -14,7 +17,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@otp-gateway/api-lib": ["libs/api-lib/src/index.ts"],
+      "@otp-gateway/auth-lib": ["libs/auth-lib/src/index.ts"],
+      "@otp-gateway/common": ["libs/common/src/index.ts"],
+      "@otp-gateway/config": ["libs/config/src/index.ts"],
+      "@otp-gateway/common/*": ["libs/common/src/lib/*"],
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
