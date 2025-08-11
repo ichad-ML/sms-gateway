@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit, ServiceUnavailableException } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { SmsApiService } from './sms-api.service';
 import type { ConfigType } from '@nestjs/config';
 import { smsConfig } from '@otp-gateway/config';

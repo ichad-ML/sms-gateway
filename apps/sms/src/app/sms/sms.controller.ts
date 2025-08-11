@@ -1,7 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { SmsService } from './sms.service';
 import { SmsDto, SmsOtpResponseDto } from '@otp-gateway/common/dtos';
+import { SmsMaintenanceGuard } from '@otp-gateway/auth-lib';
 
+@UseGuards(SmsMaintenanceGuard)
 @Controller('sms')
 export class SmsController {
   constructor(private readonly smsService: SmsService) {}

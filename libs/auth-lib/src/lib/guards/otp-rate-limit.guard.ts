@@ -2,8 +2,10 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
-  BadRequestException,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
+import { CODE } from '@otp-gateway/common/enums';
 
 const otpAttemptStore = new Map<
   string,
@@ -30,8 +32,14 @@ export class OtpRateLimitGuard implements CanActivate {
     }
 
     if (entry.count >= this.maxAttempts) {
-      throw new BadRequestException(
-        'Too many OTP attempts. Please try again later.'
+      throw new HttpException(
+        {
+          code: 'TOO_MANY_ATTEMPTS',
+          message: 'Too many attempts. Please try again later.',
+          retryAfter: `${this.windowMs / 1000} seconds`,
+          statusCode: CODE.TOO_MANY_REQUESTS,
+        },
+        HttpStatus.TOO_MANY_REQUESTS
       );
     }
 

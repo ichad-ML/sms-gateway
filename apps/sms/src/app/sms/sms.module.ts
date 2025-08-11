@@ -3,7 +3,7 @@ import { SmsController } from './sms.controller';
 import { SmsService } from './sms.service';
 import { ConfigModule } from '@nestjs/config';
 import { smsConfig } from '@otp-gateway/config';
-import { MlClientApi } from '@otp-gateway/auth-lib';
+import { MlClientApi, SmsMaintenanceGuard } from '@otp-gateway/auth-lib';
 import { TokenService } from '../services/token.service';
 import { SmsApiService } from '../services/sms-api.service';
 
@@ -15,6 +15,12 @@ import { SmsApiService } from '../services/sms-api.service';
     }),
   ],
   controllers: [SmsController],
-  providers: [SmsService, MlClientApi, TokenService, SmsApiService],
+  providers: [
+    SmsService,
+    MlClientApi,
+    TokenService,
+    SmsApiService,
+    SmsMaintenanceGuard,
+  ],
 })
 export class SmsModule {}

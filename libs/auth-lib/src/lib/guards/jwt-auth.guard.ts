@@ -45,14 +45,6 @@ export class JwtAuthGuard implements CanActivate {
       const tokenIssuedAt = decoded.iat;
 
       const ageInSeconds = currentTime - +tokenIssuedAt;
-      console.log(
-        'time difference in seconds:',
-        ageInSeconds,
-        'currentTime:',
-        currentTime,
-        'tokenIssuedAt:',
-        tokenIssuedAt
-      );
 
       if (ageInSeconds > 60) {
         return false;

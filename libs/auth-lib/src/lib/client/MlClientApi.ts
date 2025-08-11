@@ -1,10 +1,17 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  ServiceUnavailableException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { CODE } from '@otp-gateway/common/enums';
 // import { CustomLoggerService } from '@ml-workspace/common';
 
 @Injectable()
 export class MlClientApi {
-//   constructor(private readonly logger: CustomLoggerService) {}
+  //   constructor(private readonly logger: CustomLoggerService) {}
 
   async sendRequest(config: AxiosRequestConfig, token?: string): Promise<any> {
     if (token) {
@@ -20,9 +27,12 @@ export class MlClientApi {
       const response = await axios.request(config);
       return response;
     } catch (error: any) {
-      if (error.response) {
-        // this.logger.error('ERROR:', error.response.data);
-      }
+      if (error.response.status === CODE.SERVICE_UNAVAILABLE)
+        throw new ServiceUnavailableException(error.response.data);
+
+      if (error.response.status === CODE.UNAUTHORIZED)
+        throw new UnauthorizedException(error.response.data);
+
       throw new BadRequestException(error.message);
     }
   }
