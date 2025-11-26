@@ -17,6 +17,17 @@ export class SmsService {
   async sendSms(dto: SmsDto): Promise<SmsOtpResponseDto> {
     const token = this.tokenService.getAccessToken();
 
+    const { enabled: smartSmsEnabled } = this.config.smartSms;
+    const { enabled: globeSmsEnabled } = this.config.globeSms;
+
+    if (!smartSmsEnabled && !globeSmsEnabled) {
+      throw new Error('No SMS provider is enabled.');
+    }
+
+    const baseUrl = smartSmsEnabled
+      ? this.config.smartSms.baseUrl
+      : this.config.globeSms.baseUrl;
+
     const data = {
       messageType: dto.type,
       text: dto.message,
@@ -24,6 +35,6 @@ export class SmsService {
       keyValues: dto.value,
     } as unknown as SmsDto;
 
-    return this.smsApiService.sendSms(data, token, this.config.smsBaseUrl);
+    return this.smsApiService.sendSms(data, token, baseUrl);
   }
 }

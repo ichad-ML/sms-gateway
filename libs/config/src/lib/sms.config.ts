@@ -5,11 +5,20 @@ import { validateConfigSchema } from './utils/schema.validator';
 const schema = Joi.object({
   port: Joi.number(),
 
-  smsBaseUrl: Joi.string().required(),
-  smsUsername: Joi.string().required(),
-  smsPassword: Joi.string().required(),
+  smartSms: Joi.object({
+    baseUrl: Joi.string().required(),
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+    enabled: Joi.boolean(),
+  }),
 
-  smartSmsEnabled: Joi.boolean(),
+  globeSms: Joi.object({
+    baseUrl: Joi.string().required(),
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+    enabled: Joi.boolean(),
+  }),
+
   smsMaintenanceEnabled: Joi.boolean(),
 });
 
@@ -19,12 +28,21 @@ export default registerAs('smsConfig', async () => {
   const config = {
     port: process.env['PORT'] || 3000,
 
-    smsBaseUrl: process.env['SMS_BASE_URL'] || '',
-    smsUsername: process.env['SMS_USERNAME'] || '',
-    smsPassword: process.env['SMS_PASSWORD'] || '',
+    smartSms: {
+      baseUrl: process.env['SMART_SMS_BASE_URL'] || '',
+      username: process.env['SMART_SMS_USERNAME'] || '',
+      password: process.env['SMART_SMS_PASSWORD'] || '',
+      enabled: process.env['SMART_SMS_ENABLED'] === 'true',
+    },
 
-    smartSmsEnabled: process.env['SMART_SMS_ENABLED'] === 'true',
-    smsMaintenanceEnabled: process.env['SMS_MAINTENANCE_ENABLED'] === 'true',
+    globeSms: {
+      baseUrl: process.env['GLOBE_SMS_BASE_URL'] || '',
+      username: process.env['GLOBE_SMS_USERNAME'] || '',
+      password: process.env['GLOBE_SMS_PASSWORD'] || '',
+      enabled: process.env['GLOBE_SMS_ENABLED'] === 'true',
+    },
+
+    smsMaintenanceEnabled: process.env['SMS_MAINTENANCE_ENABLED'] === 'false',
   };
 
   validateConfigSchema('smsConfig', config, schema);

@@ -72,7 +72,7 @@ export class TokenService implements OnModuleInit {
   }
 
   private async refreshAccessToken(): Promise<string> {
-    const baseUrl = this.config.smsBaseUrl;
+    const baseUrl = this.config.smartSms.baseUrl;
     const { accessToken } = await this.smsApiService.refreshToken(
       this.refreshToken,
       this.accessToken,
@@ -86,9 +86,9 @@ export class TokenService implements OnModuleInit {
     accessToken: string;
     refreshToken: string;
   }> {
-    const username = this.config.smsUsername;
-    const password = this.config.smsPassword;
-    const baseUrl = this.config.smsBaseUrl;
+    const username = this.config.smartSms.username;
+    const password = this.config.smartSms.password;
+    const baseUrl = this.config.smartSms.baseUrl;
 
     const { accessToken, refreshToken } =
       await this.smsApiService.generateToken(username, password, baseUrl);
