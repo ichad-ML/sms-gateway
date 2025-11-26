@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
-import { smsConfig } from '@otp-gateway/config';
+import { smsConfig } from '@sms-gateway/config';
 import { SmsApiService } from '../services/sms-api.service';
 import { TokenService } from '../services/token.service';
-import { SmsDto, SmsOtpResponseDto } from '@otp-gateway/common/dtos';
+import { SmsDto, SmsOtpResponseDto } from '@sms-gateway/common/dtos';
 
 @Injectable()
 export class SmsService {

@@ -2,15 +2,24 @@
 import { OtpService } from './otp.service';
 import { FirebaseService } from '../common/firebase/firebase.service';
 
-import { BadRequestException } from '@nestjs/common';
-import { OtpApiService } from '@otp-gateway/api-lib';
-import { createInAppSignature, isSmsOTP } from '@otp-gateway/common/utils';
-import { OtpRequestDto, OtpVerifyDto, SmsOtpResponseDto } from '@otp-gateway/common/dtos';
-import { CODE, CollectionType, MESSAGE } from '@otp-gateway/common/enums';
+import { BadRequestException, HttpStatus } from '@nestjs/common';
+import { OtpApiService } from '@sms-gateway/api-lib';
+import { createInAppSignature, isSmsOTP } from '@sms-gateway/common/utils';
+import {
+  OtpRequestDto,
+  OtpVerifyDto,
+  SmsOtpResponseDto,
+} from '@sms-gateway/common/dtos';
+import { CollectionType, MESSAGE } from '@sms-gateway/common/enums';
 import { decryptAES } from '../common/otp-lib/otp-encryption';
 import { verifyOTP } from '../common/otp-lib/otp-lib';
-import { mockFirebaseService, mockLoggerService, mockOtpApiService, mockOtpConfig } from '../common/test/mock';
-import { CustomLoggerService } from '@otp-gateway/common/logger';
+import {
+  mockFirebaseService,
+  mockLoggerService,
+  mockOtpApiService,
+  mockOtpConfig,
+} from '../common/test/mock';
+import { CustomLoggerService } from '@sms-gateway/common/logger';
 
 jest.mock('@otp-gateway/common/utils', () => ({
   ...jest.requireActual('@otp-gateway/common/utils'),
@@ -177,7 +186,7 @@ describe('OTPService', () => {
 
       expect(result).toEqual({
         message: 'OTP is valid',
-        code: CODE.SUCCESS,
+        code: HttpStatus.OK,
         name: MESSAGE.SUCCESS,
       });
 

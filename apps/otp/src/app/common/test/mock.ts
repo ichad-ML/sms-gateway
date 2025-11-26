@@ -1,7 +1,7 @@
 import type { ConfigType } from '@nestjs/config';
 import { FirebaseService } from '../firebase/firebase.service';
-import { OtpApiService } from '@otp-gateway/api-lib';
-import { otpConfig } from '@otp-gateway/config';
+import { OtpApiService } from '@sms-gateway/api-lib';
+import { otpConfig } from '@sms-gateway/config';
 
 export type Functions<T> = Partial<{
   [K in keyof T]: T[K];

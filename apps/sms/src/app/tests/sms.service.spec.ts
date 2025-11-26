@@ -1,8 +1,8 @@
-import { SmsDto } from '@otp-gateway/common/dtos';
+import { SmsDto } from '@sms-gateway/common/dtos';
 import { SmsApiService } from '../services/sms-api.service';
 import { TokenService } from '../services/token.service';
 import { SmsService } from '../sms/sms.service';
-import { MessageType } from '@otp-gateway/common/enums';
+import { MessageType } from '@sms-gateway/common/enums';
 import { mockSmsApiService, mockSmsConfig, mockTokenService } from './mock';
 
 describe('SmsService', () => {

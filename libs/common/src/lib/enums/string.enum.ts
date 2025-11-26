@@ -9,6 +9,7 @@ export enum MESSAGE {
   INTERNAL_SERVER_ERROR = 'Internal Server Error',
   SERVICE_UNAVAILABLE = 'Service Unavailable',
 }
+<<<<<<< Updated upstream
 
 export enum CODE {
   SUCCESS = 200,
@@ -20,3 +21,5 @@ export enum CODE {
   INTERNAL_SERVER_ERROR = 500,
   SERVICE_UNAVAILABLE = 503,
 }
+=======
+>>>>>>> Stashed changes

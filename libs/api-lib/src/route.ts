@@ -1,4 +1,4 @@
-export const AUTHSERVICE = {
+export const AUTH_SERVICE_URL = {
   GENERATE_TOKEN: '/api/v1/external-user',
 };
 

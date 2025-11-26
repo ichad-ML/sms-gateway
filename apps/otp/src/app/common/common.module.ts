@@ -1,7 +1,7 @@
 import { Module, ValidationError, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
-import { otpConfig } from '@otp-gateway/config';
+import { otpConfig } from '@sms-gateway/config';
 import { FirebaseService } from './firebase/firebase.service';
 
 @Module({

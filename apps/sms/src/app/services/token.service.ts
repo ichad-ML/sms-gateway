@@ -1,9 +1,9 @@
 import { Inject, Injectable, OnModuleInit, ServiceUnavailableException } from '@nestjs/common';
 import { SmsApiService } from './sms-api.service';
 import type { ConfigType } from '@nestjs/config';
-import { smsConfig } from '@otp-gateway/config';
-import { getCurrentDate } from '@otp-gateway/common/utils';
-import { DateFormat } from '@otp-gateway/common/enums';
+import { smsConfig } from '@sms-gateway/config';
+import { getCurrentDate } from '@sms-gateway/common/utils';
+import { DateFormat } from '@sms-gateway/common/enums';
 
 @Injectable()
 export class TokenService implements OnModuleInit {
@@ -13,7 +13,7 @@ export class TokenService implements OnModuleInit {
   // Token lifetimes (in seconds)
   private readonly accessTokenTTL = 1800; // 30 minutes
   private readonly refreshTokenTTL = 28800; // 8 hours
-  private readonly bufferSeconds = 300; // 5-minute early refresh
+  private readonly bufferSeconds = 120; // 5-minute early refresh
 
   private refreshTokenIssuedAt: number;
   private refreshIntervalId: NodeJS.Timer;
@@ -63,7 +63,7 @@ export class TokenService implements OnModuleInit {
       } catch (err: any) {
         console.error(`[TokenService] Token refresh failed: ${err.message}`);
       }
-    }, intervalSeconds * 1000); // e.g., every 25 minutes
+    }, intervalSeconds * 1000); // e.g., every 28 minutes
   }
 
   private isRefreshTokenExpired(): boolean {

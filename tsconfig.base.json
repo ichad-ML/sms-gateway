@@ -18,11 +18,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@otp-gateway/api-lib": ["libs/api-lib/src/index.ts"],
-      "@otp-gateway/auth-lib": ["libs/auth-lib/src/index.ts"],
-      "@otp-gateway/common": ["libs/common/src/index.ts"],
-      "@otp-gateway/config": ["libs/config/src/index.ts"],
-      "@otp-gateway/common/*": ["libs/common/src/lib/*"],
+      "@sms-gateway/api-lib": ["libs/api-lib/src/index.ts"],
+      "@sms-gateway/auth-lib": ["libs/auth-lib/src/index.ts"],
+      "@sms-gateway/common": ["libs/common/src/index.ts"],
+      "@sms-gateway/config": ["libs/config/src/index.ts"],
+      "@sms-gateway/common/*": ["libs/common/src/lib/*"],
     }
   },
   "exclude": ["node_modules", "tmp"]

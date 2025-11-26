@@ -1,7 +1,7 @@
 import type { ConfigType } from '@nestjs/config';
 import { SmsApiService } from '../services/sms-api.service';
 import { TokenService } from '../services/token.service';
-import { smsConfig } from '@otp-gateway/config';
+import { smsConfig } from '@sms-gateway/config';
 
 export type Functions<T> = Partial<{
   [K in keyof T]: T[K];

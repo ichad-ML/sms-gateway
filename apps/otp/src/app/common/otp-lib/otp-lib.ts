@@ -1,4 +1,4 @@
-import { VerifyOTPResponse } from '@otp-gateway/common/interfaces';
+import { VerifyOTPResponse } from '@sms-gateway/common/interfaces';
 import { authenticator } from 'otplib';
 
 export function generateSecret(): string {

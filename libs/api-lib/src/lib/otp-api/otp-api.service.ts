@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
-import { AUTHSERVICE, URLS } from '../../route';
-import { MlClientApi } from '@otp-gateway/auth-lib';
-import { SmsDto } from '@otp-gateway/common';
-import { otpConfig } from '@otp-gateway/config';
+import { AUTH_SERVICE_URL, URLS } from '../../route';
+import { MlClientApi } from '@sms-gateway/auth-lib';
+import { SmsDto } from '@sms-gateway/common';
+import { otpConfig } from '@sms-gateway/config';
 
 @Injectable()
 export class OtpApiService {
@@ -37,7 +37,7 @@ export class OtpApiService {
     const response = await this.mlClientApi.sendRequest({
       data,
       method: 'POST',
-      url: AUTHSERVICE.GENERATE_TOKEN,
+      url: AUTH_SERVICE_URL.GENERATE_TOKEN,
       baseURL: this.config.authServiceUrl,
     });
 

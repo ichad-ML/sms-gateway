@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
+<<<<<<< Updated upstream
 import { URLS } from '@otp-gateway/api-lib';
 import { MlClientApi } from '@otp-gateway/auth-lib';
 import { SmsDto } from '@otp-gateway/common/dtos';
 import { access } from 'fs';
+=======
+import { URLS } from '@sms-gateway/api-lib';
+import { MlClientApi } from '@sms-gateway/auth-lib';
+import { SmsDto } from '@sms-gateway/common/dtos';
+>>>>>>> Stashed changes
 
 @Injectable()
 export class SmsApiService {

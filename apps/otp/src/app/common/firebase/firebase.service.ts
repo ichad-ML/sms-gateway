@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import type { ConfigType } from '@nestjs/config';
-import { CollectionType } from '@otp-gateway/common/enums';
-import { otpConfig } from '@otp-gateway/config';
+import { CollectionType } from '@sms-gateway/common/enums';
+import { otpConfig } from '@sms-gateway/config';
 import * as admin from 'firebase-admin';
 
 @Injectable()

@@ -1,14 +1,38 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { FirebaseService } from '../common/firebase/firebase.service';
-import { otpConfig } from '@otp-gateway/config';
-import { generateOTP, generateSecret, verifyOTP } from '../common/otp-lib/otp-lib';
+import { otpConfig } from '@sms-gateway/config';
+import {
+  generateOTP,
+  generateSecret,
+  verifyOTP,
+} from '../common/otp-lib/otp-lib';
 import { decryptAES, encryptAES } from '../common/otp-lib/otp-encryption';
-import { OtpApiService } from '@otp-gateway/api-lib';
+import { OtpApiService } from '@sms-gateway/api-lib';
 import type { ConfigType } from '@nestjs/config';
-import { OtpRequestDto, OtpResponseDto, OtpVerifyDto, OtpVerifyResponseDto } from '@otp-gateway/common/dtos';
-import { CODE, CollectionType, DateFormat, MESSAGE, MessageType } from '@otp-gateway/common/enums';
-import { createInAppSignature, createTokenSignature, getCurrentDate, isSmsOTP } from '@otp-gateway/common/utils';
-import { CustomLoggerService } from '@otp-gateway/common/logger';
+import {
+  OtpRequestDto,
+  OtpResponseDto,
+  OtpVerifyDto,
+  OtpVerifyResponseDto,
+} from '@sms-gateway/common/dtos';
+import {
+  CollectionType,
+  DateFormat,
+  MESSAGE,
+  MessageType,
+} from '@sms-gateway/common/enums';
+import {
+  createInAppSignature,
+  createTokenSignature,
+  getCurrentDate,
+  isSmsOTP,
+} from '@sms-gateway/common/utils';
+import { CustomLoggerService } from '@sms-gateway/common/logger';
 
 @Injectable()
 export class OtpService {
@@ -64,7 +88,7 @@ export class OtpService {
     return {
       otp,
       id: document.id,
-      code: CODE.SUCCESS,
+      code: HttpStatus.OK,
       name: MESSAGE.SUCCESS,
       message: 'OTP successfully generated.',
       smsStatus: response?.status,
@@ -110,7 +134,7 @@ export class OtpService {
 
     return {
       message,
-      code: CODE.SUCCESS,
+      code: HttpStatus.OK,
       name: MESSAGE.SUCCESS,
     };
   }
