@@ -3,6 +3,8 @@ import {
   ExecutionContext,
   Injectable,
   BadRequestException,
+  HttpStatus,
+  HttpException,
 } from '@nestjs/common';
 
 const otpAttemptStore = new Map<
@@ -30,10 +32,6 @@ export class OtpRateLimitGuard implements CanActivate {
     }
 
     if (entry.count >= this.maxAttempts) {
-<<<<<<< Updated upstream
-      throw new BadRequestException(
-        'Too many OTP attempts. Please try again later.'
-=======
       throw new HttpException(
         {
           code: 'TOO_MANY_REQUESTS',
@@ -41,7 +39,6 @@ export class OtpRateLimitGuard implements CanActivate {
           retryAfter: `${this.windowMs / 1000} seconds`,
         },
         HttpStatus.TOO_MANY_REQUESTS
->>>>>>> Stashed changes
       );
     }
 

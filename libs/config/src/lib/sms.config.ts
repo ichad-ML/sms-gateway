@@ -9,7 +9,8 @@ const schema = Joi.object({
   smsUsername: Joi.string().required(),
   smsPassword: Joi.string().required(),
 
-  isSmsDisabled: Joi.boolean(),
+  smartSmsEnabled: Joi.boolean(),
+  smsMaintenanceEnabled: Joi.boolean(),
 });
 
 export default registerAs('smsConfig', async () => {
@@ -22,7 +23,8 @@ export default registerAs('smsConfig', async () => {
     smsUsername: process.env['SMS_USERNAME'] || '',
     smsPassword: process.env['SMS_PASSWORD'] || '',
 
-    isSmartSmsDisabled: process.env['IS_SMART_SMS_DISABLED'] === 'true',
+    smartSmsEnabled: process.env['SMART_SMS_ENABLED'] === 'true',
+    smsMaintenanceEnabled: process.env['SMS_MAINTENANCE_ENABLED'] === 'true',
   };
 
   validateConfigSchema('smsConfig', config, schema);
