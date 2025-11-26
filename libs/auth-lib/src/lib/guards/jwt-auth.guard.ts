@@ -3,6 +3,7 @@ import {
   CanActivate,
   ExecutionContext,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
@@ -23,22 +24,19 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     const secretKey = this.configService.get<string>('JWT_SECRET_KEY');
-    const apiKey = this.configService.get<string>('JWT_API_KEY');
+    const apiKeysString =
+      this.configService.get<string>('JWT_ALLOWED_API_KEYS') || '';
+    const apiKeys = apiKeysString.split(',').map((key) => key.trim());
 
-    if (!secretKey || !apiKey) {
+    if (!secretKey) {
       throw new UnauthorizedException('JWT secret is not defined');
     }
 
     try {
       const decoded = jwt.verify(token, secretKey) as unknown as JwtPayload;
-      console.log('decoded=>', decoded);
 
-      if (!decoded.apiKey || !decoded.iat) {
-        return false;
-      }
-
-      if (decoded.apiKey !== apiKey) {
-        return false;
+      if (!decoded.apiKey || !apiKeys.includes(decoded.apiKey)) {
+        throw new BadRequestException();
       }
 
       const currentTime = Math.floor(Date.now() / 1000);
@@ -58,13 +56,13 @@ export class JwtAuthGuard implements CanActivate {
         return false;
       }
 
-      if (+tokenIssuedAt > currentTime) {
-        return false;
-      }
-
       request.user = decoded;
       return true;
     } catch (err) {
+      if (err instanceof BadRequestException) {
+        throw new BadRequestException('Invalid API key.');
+      }
+
       throw new UnauthorizedException('Invalid or expired token');
     }
   }
