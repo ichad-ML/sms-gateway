@@ -44,13 +44,16 @@ export class OtpApiService {
     return response.data.data;
   }
 
-  async sendSmsOTP(data: SmsDto) {
-    const response = await this.mlClientApi.sendRequest({
-      data,
-      method: 'POST',
-      url: URLS.REQUEST_OTP,
-      baseURL: this.config.smsOtpBaseUrl,
-    });
+  async sendSmsOTP(data: SmsDto, token?: string): Promise<any> {
+    const response = await this.mlClientApi.sendRequest(
+      {
+        data,
+        method: 'POST',
+        url: URLS.REQUEST_OTP,
+        baseURL: this.config.smsOtpBaseUrl,
+      },
+      token
+    );
 
     return response.data;
   }

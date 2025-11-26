@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit, ServiceUnavailableException } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { SmsApiService } from './sms-api.service';
 import type { ConfigType } from '@nestjs/config';
 import { smsConfig } from '@sms-gateway/config';
@@ -13,7 +13,7 @@ export class TokenService implements OnModuleInit {
   // Token lifetimes (in seconds)
   private readonly accessTokenTTL = 1800; // 30 minutes
   private readonly refreshTokenTTL = 28800; // 8 hours
-  private readonly bufferSeconds = 120; // 5-minute early refresh
+  private readonly bufferSeconds = 120; // 2-minute early refresh
 
   private refreshTokenIssuedAt: number;
   private refreshIntervalId: NodeJS.Timer;

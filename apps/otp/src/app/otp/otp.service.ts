@@ -149,15 +149,19 @@ export class OtpService {
   }
 
   private async sendSmsOtp(otp: string, mobileNumber: string) {
+    const { token } = await this.generateToken();
     const message =
       'Your M.Lhuillier One-Time-Pin(OTP) is {otp}. Please do not share this with anyone, including to those who claim to be ML personnel.';
 
-    const response = await this.otpApiService.sendSmsOTP({
-      message,
-      mobileNumber,
-      type: MessageType.SMS,
-      value: `otp=${otp}`,
-    });
+    const response = await this.otpApiService.sendSmsOTP(
+      {
+        message,
+        mobileNumber,
+        type: MessageType.SMS,
+        value: `otp=${otp}`,
+      },
+      token
+    );
 
     return response;
   }

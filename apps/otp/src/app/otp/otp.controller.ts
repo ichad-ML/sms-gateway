@@ -1,10 +1,16 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { OtpService } from './otp.service';
-import { OtpRateLimitGuard } from '@sms-gateway/auth-lib';
-import { OtpRequestDto, OtpResponseDto, OtpVerifyDto, OtpVerifyResponseDto } from '@sms-gateway/common/dtos';
+import { JwtAuthGuard, OtpRateLimitGuard } from '@sms-gateway/auth-lib';
+import {
+  OtpRequestDto,
+  OtpResponseDto,
+  OtpVerifyDto,
+  OtpVerifyResponseDto,
+} from '@sms-gateway/common/dtos';
 import { isSmsOTP } from '@sms-gateway/common/utils';
 import { CollectionType } from '@sms-gateway/common/enums';
 
+@UseGuards(JwtAuthGuard)
 @UseGuards(OtpRateLimitGuard)
 @Controller('otp')
 export class OtpController {
